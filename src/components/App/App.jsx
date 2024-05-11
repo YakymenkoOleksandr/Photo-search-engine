@@ -6,17 +6,16 @@ import LoadMore from '../LoadMoreBtn/LoadMoreBtn';
 import Loader from '../Loader/Loader';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import Modal from 'react-modal';
+
 
 export default function App() {
-  Modal.setAppElement('#root');
   const [images, setImages] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [carentPage, setCarentPage] = useState(0);
   const [loading, setLoading] = useState();
   const [textError, setTextError] = useState();
   const [totalPages, setTotalPages] = useState(null);
-  const [selectedImage, setSelectedImage] = useState(null);
+
 
   useEffect(() => {
     async function fetchImages() {
@@ -47,15 +46,6 @@ export default function App() {
   const loadMoreImg = () => {
     setCarentPage(carentPage => carentPage + 1);
   };
-
-    const openModal = imageUrl => {
-    setSelectedImage(imageUrl);
-  };
-
-  const closeModal = () => {
-    setSelectedImage(null);
-  };
-
 
   return (
     <>
