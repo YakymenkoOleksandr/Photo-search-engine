@@ -1,38 +1,80 @@
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
-import SearchBar from '../Header/SearchBar';
+import SearchBar from '../SearchBar/SearchBar';
 import ImageGallery from '../ImageGallery/ImageGallery';
 import ImageModal from '../ImageModal/ImageModal';
 import LoadMore from '../LoadMoreBtn/LoadMoreBtn';
 import Loader from '../Loader/Loader';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import Modal from 'react-modal';
 
 export default function App() {
+  Modal.setAppElement('#root');
   const [images, setImages] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [carentPage, setCarentPage] = useState(0);
+  const [loading, setLoading] = useState();
+  const [textError, setTextError] = useState();
+  const [totalPages, setTotalPages] = useState(null);
+  const [selectedImage, setSelectedImage] = useState(null);
 
   useEffect(() => {
     async function fetchImages() {
-      const response = await axios.get(
-        'https://api.unsplash.com/search/collections?client_id=c2HLolhiTAwmDLWov8kOUPakRlrW8klQgATCyT56-gw&per_page=12&query=office'
-      );
-        setImages(response.data.results);
+      try {
+        setLoading(true);
+        const response = await axios.get(
+          `https://api.unsplash.com/search/collections?client_id=c2HLolhiTAwmDLWov8kOUPakRlrW8klQgATCyT56-gw&page=${carentPage}&per_page=12&orientation=landscape&query=${searchQuery}`
+        );
+        setImages(prevImages => [...prevImages, ...response.data.results]);
+        setTotalPages(response.data.total_pages);
+      } catch (error) {
+        setTextError(error);
+      } finally {
+        setLoading(false);
+      }
     }
+
     fetchImages();
-  }, []);
+  }, [searchQuery, carentPage]);
+
+  const handleSubmit = (values, actions) => {
+    setSearchQuery(values.searchPhotos);
+    setCarentPage(1);
+    setImages([]);
+    actions.resetForm();
+  };
+
+  const loadMoreImg = () => {
+    setCarentPage(carentPage => carentPage + 1);
+  };
+
+    const openModal = imageUrl => {
+    setSelectedImage(imageUrl);
+  };
+
+  const closeModal = () => {
+    setSelectedImage(null);
+  };
+
 
   return (
     <>
-      <SearchBar />
+      {console.log(carentPage, totalPages)}
+      <SearchBar handleSubmit={handleSubmit} />
+      {!textError ? (
+        <>
           <ImageGallery items={images} />
-          {console.log(images)}
-      <Loader />{' '}
-      {/*відображається під галереєю поки відбувається завантаження зображень*/}
-      <ErrorMessage />{' '}
-      {/*рендериться замість галереї зображень у випадку помилки HTTP-запиту.*/}
-      <LoadMore />{' '}
-      {/*Кнопка має рендеритися лише тоді, коли є які-небудь завантажені зображення.
-Якщо масив зображень порожній, кнопка не рендериться.*/}
-      <ImageModal />
+          {loading && <Loader />}
+          {totalPages !== null && carentPage < totalPages && (
+            <LoadMore loadMoreImg={loadMoreImg} />
+          )}
+          <ImageModal />
+        </>
+      ) : (
+        <>
+          <ErrorMessage textError={textError} />
+        </>
+      )}
     </>
   );
 }

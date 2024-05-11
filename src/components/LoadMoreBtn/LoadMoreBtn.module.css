@@ -1,0 +1,19 @@
+.loadButtonBlock {
+  display: flex;
+  justify-content: center;
+}
+
+.loadButton {
+  border: 2px solid #393ca4;
+  border-radius: 3px;
+  background-color: #4448c9;
+  color: white;
+  cursor: pointer;
+  min-width: 10%;
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+
+.loadButton:hover {
+  transform: scale(1.05);
+  box-shadow: 4px 6px 12px rgba(0, 0, 0, 0.4);
+}

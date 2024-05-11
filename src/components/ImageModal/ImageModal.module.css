@@ -1,0 +1,19 @@
+.modalWindowOfImg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+}
+
+.animalImg {
+    max-height: calc(100vh - 80px);
+    max-width: calc(100vw - 80px);
+}
+
+.modalOverlay {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.modalWindowOfImg {
+    z-index: 1000;
+}
