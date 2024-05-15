@@ -15,6 +15,8 @@ export default function App() {
   const [loading, setLoading] = useState();
   const [textError, setTextError] = useState();
   const [totalPages, setTotalPages] = useState(null);
+  const [modalImageUrl, setModalImageUrl] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
 
   useEffect(() => {
@@ -47,18 +49,27 @@ export default function App() {
     setCarentPage(carentPage => carentPage + 1);
   };
 
+    const openModal = (imageUrl) => {
+    setModalImageUrl(imageUrl);
+      setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <>
       {console.log(carentPage, totalPages)}
       <SearchBar handleSubmit={handleSubmit} />
       {!textError ? (
         <>
-          <ImageGallery items={images} />
+          <ImageGallery items={images} onClick={openModal} />
           {loading && <Loader />}
           {totalPages !== null && carentPage < totalPages && (
             <LoadMore loadMoreImg={loadMoreImg} />
           )}
-          <ImageModal />
+          <ImageModal isOpen={isModalOpen} imageUrl={modalImageUrl} onClose={closeModal} />
         </>
       ) : (
         <>

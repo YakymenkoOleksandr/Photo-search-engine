@@ -3,6 +3,7 @@ import Modal from 'react-modal';
 import css from './ImageModal.module.css'; 
 
 export default function ImageModal({ isOpen, imageUrl, onClose }) {
+  console.log(imageUrl);
   return (
     <Modal
       isOpen={isOpen}
@@ -11,6 +12,7 @@ export default function ImageModal({ isOpen, imageUrl, onClose }) {
       className={css.modalWindowOfImg}
       overlayClassName={css.modalOverlay}
       shouldCloseOnOverlayClick={true}
+      shouldCloseOnEsc={true}
     >
       <img src={imageUrl} alt="Large version of the image" className={css.animalImg} />
     </Modal>
