@@ -60,11 +60,10 @@ export default function App() {
 
   return (
     <>
-      {console.log(carentPage, totalPages)}
       <SearchBar handleSubmit={handleSubmit} />
       {!textError ? (
         <>
-          <ImageGallery items={images} onClick={openModal} />
+          <ImageGallery items={images} openModal={openModal} />
           {loading && <Loader />}
           {totalPages !== null && carentPage < totalPages && (
             <LoadMore loadMoreImg={loadMoreImg} />
