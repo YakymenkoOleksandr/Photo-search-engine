@@ -3,12 +3,10 @@ export default function ImageCard({ item, openModal }) {
   console.log(openModal);
 
   return (
-    <div onClick={() => openModal(item.cover_photo.urls.regular)}>
-      <img 
+      <img onClick={() => openModal(item.cover_photo.urls.regular)}
         className={css.img}
         src={item.cover_photo.urls.small}
         alt={item.cover_photo.alt_description}
       />
-    </div>
   );
 }

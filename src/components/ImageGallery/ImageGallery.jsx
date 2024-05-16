@@ -12,5 +12,3 @@ export default function ImageGallery({ items, openModal}) {
     </ul>
   );
 }
-
-/*onClick={() => openModal(item.cover_photo.urls.regular)*/
