@@ -1,5 +1,15 @@
 import css from './ErrorMessage.module.css'
-export default function ErrorMessage({ textError }) {
+
+type TextErrorObjType = {
+  message: string;
+  code: string;
+}
+
+type PropsOfTextEror = {
+  textError: TextErrorObjType | undefined;
+}
+
+export default function ErrorMessage({ textError }: PropsOfTextEror) {
   return (
     <>
       {textError && (
