@@ -1,31 +1,5 @@
 import css from "./ImageCard.module.css";
-
-type CoverPhotoType = {
-  id: number;
-  urls: {
-    raw: string;
-    full: string;
-    regular: string;
-    small: string;
-    thumb: string;
-  };
-  alt_description: string;
-};
-
-type ItemType = {
-  id: number;
-  title: string;
-  description: string;
-  published_at: string;
-  cover_photo: CoverPhotoType;
-};
-
-type OpenModalType = (imageUrl: string) => void;
-
-type ImageCardProps = {
-  item: ItemType;
-  openModal: OpenModalType;
-};
+import { ImageCardProps } from "../../Types"
 
 export default function ImageCard({ item, openModal }: ImageCardProps) {
   return (

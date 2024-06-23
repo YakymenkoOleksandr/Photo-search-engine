@@ -1,32 +1,6 @@
 import ImageCard from "../ImageCard/ImageCard";
 import css from "./ImageGallery.module.css";
-
-type CoverPhotoType = {
-  id: number;
-  urls: {
-    raw: string;
-    full: string;
-    regular: string;
-    small: string;
-    thumb: string;
-  };
-  alt_description: string;
-};
-
-type ItemTypes = {
-  id: number;
-  title: string;
-  description: string;
-  published_at: string;
-  cover_photo: CoverPhotoType;
-};
-
-type OpenModalType = (imageUrl: string) => void;
-
-type ImageGalleryPropsType = {
-  items: ItemTypes[];
-  openModal: OpenModalType;
-};
+import {ImageGalleryPropsType} from "../../Types"
 
 export default function ImageGallery({
   items,

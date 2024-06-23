@@ -6,44 +6,14 @@ import LoadMore from "../LoadMoreBtn/LoadMoreBtn";
 import Loader from "../Loader/Loader";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { FormikHelpers } from "formik";
+
+import {
+  Image,
+  TextErrorObjType,
+  HandleSubmitPropsType,
+} from "../../Types"
 
 export default function App() {
-  type FormValues = {
-    searchPhotos: string;
-  };
-
-  type HandleSubmitPropsType = {
-    handleSubmit: (
-      values: FormValues,
-      actions: FormikHelpers<FormValues>
-    ) => void;
-  };
-
-  type TextErrorObjType = {
-    message: string;
-    code: string;
-  };
-
-  type CoverPhoto = {
-    id: number;
-    urls: {
-      raw: string;
-      full: string;
-      regular: string;
-      small: string;
-      thumb: string;
-    };
-    alt_description: string;
-  };
-
-  type Image = {
-    id: number;
-    title: string;
-    description: string;
-    published_at: string;
-    cover_photo: CoverPhoto;
-  };
 
   const [images, setImages] = useState<Image[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>("");
