@@ -1,14 +1,22 @@
 import css from "./ImageCard.module.css";
 
 type CoverPhotoType = {
+  id: number;
   urls: {
+    raw: string;
+    full: string;
     regular: string;
     small: string;
+    thumb: string;
   };
   alt_description: string;
 };
 
 type ItemType = {
+  id: number;
+  title: string;
+  description: string;
+  published_at: string;
   cover_photo: CoverPhotoType;
 };
 
